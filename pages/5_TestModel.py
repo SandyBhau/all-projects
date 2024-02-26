@@ -25,7 +25,8 @@ import os
 from sklearn import preprocessing
 import pickle
 from sklearn.metrics import __all__
-from sklearn.naive_bayes import BernoulliNB 
+from sklearn.naive_bayes import BernoulliNB
+from sklearn.linear_model import LogisticRegression
 
 
 def data_frame_demo():
@@ -44,7 +45,8 @@ def data_frame_demo():
             loaded_model = pickle.load(open(parent_dir + "/bnb_model.pkl", 'rb'))
             st.write("Model Load - pickle load")
         except:
-            loaded_model = joblib.load(open(parent_dir + "/bnb_model.pkl", 'rb'))
+            # loaded_model = joblib.load(open(parent_dir + "/bnb_model.pkl", 'rb'))
+            loaded_model = pickle.load(open("bnb_model.pkl", 'rb'))
             st.write("Model joblib Load")
             
         list1 = [0,0,1,2,0,1,1,0]
