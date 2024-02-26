@@ -19,7 +19,8 @@ import pandas as pd
 
 import streamlit as st
 from streamlit.hello.utils import show_code
-import pickle 
+import pickle
+import joblib
 
 
 def data_frame_demo():
@@ -31,8 +32,13 @@ def data_frame_demo():
     
     if st.button("Predict"):
         st.write("Started")
-        loaded_model = pickle.load(open("bnb_model.pkl", 'rb'))
-        st.write("Model Load")
+        try:
+            loaded_model = joblib.load(open("bnb_model.pkl", 'rb'))
+            st.write("Model Load - joblib load")
+        except:
+            loaded_model = pickle.load(open("bnb_model.pkl", 'rb'))
+            st.write("Model Load")
+            
         list1 = [0,0,1,2,0,1,1,0]
         out = loaded_model.predict(pd.DataFrame([list1]))
         st.write(str(out))
