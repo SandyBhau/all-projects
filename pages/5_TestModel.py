@@ -61,14 +61,14 @@ st.write(
     """Kindly provide your symptom to check whether you have a Monkey Pox. """
 )
 
-Systemic_Illness = st.text_input("Systemic Illness",["None","Fever","Swollen Lymph Nodes","Muscle Aches and Pain"]) 
-Sore_Throat = st.text_input("Sore Throat",["No","Yes"])
-Swollen_Tonsils = st.text_input("Swollen Tonsils",["No","Yes"])
-HIV_Infection = st.text_input("HIV Infection",["No","Yes"])
-Rectal_Pain = st.text_input("Rectal Pain",["No","Yes"])
-Sexually_Transmitted_Infection = st.text_input("Sexually Transmitted Infection",["No","Yes"])
-Penile_Oedema	 = st.text_input("Penile Oedema",["No","Yes"])
-Solitary_Lesion = st.text_input("Solitary Lesion",["No","Yes"])
+Systemic_Illness = st.selectbox("Systemic Illness",["None","Fever","Swollen Lymph Nodes","Muscle Aches and Pain"]) 
+Sore_Throat = st.selectbox("Sore Throat",["No","Yes"])
+Swollen_Tonsils = st.selectbox("Swollen Tonsils",["No","Yes"])
+HIV_Infection = st.selectbox("HIV Infection",["No","Yes"])
+Rectal_Pain = st.selectbox("Rectal Pain",["No","Yes"])
+Sexually_Transmitted_Infection = st.selectbox("Sexually Transmitted Infection",["No","Yes"])
+Penile_Oedema	 = st.selectbox("Penile Oedema",["No","Yes"])
+Solitary_Lesion = st.selectbox("Solitary Lesion",["No","Yes"])
 
-if st.button == "Predict":
+if st.button("Predict"):
     predict_MP()
