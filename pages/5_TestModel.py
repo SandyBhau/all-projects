@@ -33,7 +33,7 @@ from sklearn.linear_model import LogisticRegression
 def predict_MP():
     @st.cache_data
     def read_model():
-        modelname = "model.pkl"
+        modelname = "Linear_Regression_Model_MP.pkl"
         parent_dir = os.path.dirname(os.path.abspath(__file__))
         
         loaded_model = pickle.load(open(parent_dir + "/model/" + modelname, 'rb'))
@@ -45,13 +45,13 @@ def predict_MP():
     symptomslist = [HIV_Infection,Rectal_Pain,Sexually_Transmitted_Infection, dictmap[Systemic_Illness],Penile_Oedema, Sore_Throat,Solitary_Lesion,Swollen_Tonsils]
     
     st.write(str(symptomslist))
-    st.write(type(symptomslist))
-    symptomslist_encoded = [mapping[item] for item in symptomslist]
+    symptomslist_encoded = [mapping.get(item, item) for item in list1]
+    st.write(str(symptomslist_encoded))
     
     loaded_model_pkl = read_model()
 
     out = loaded_model_pkl.predict(pd.DataFrame([symptomslist_encoded]))
-    
+    st.write(out)
     if int(out) == 0:
         st.write("Negative")
     else:
