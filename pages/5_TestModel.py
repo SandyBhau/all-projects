@@ -21,6 +21,7 @@ import streamlit as st
 from streamlit.hello.utils import show_code
 import pickle
 import joblib
+import os
 
 
 def data_frame_demo():
@@ -31,12 +32,12 @@ def data_frame_demo():
         return df.set_index("Region")
     
     if st.button("Predict"):
-        st.write("Started")
+        st.write(os.path.dirname(os.path.abspath(__file__)))
         try:
-            loaded_model = joblib.load("bnb_model.pkl", 'rb')
+            loaded_model = joblib.load(open("bnb_model.pkl", 'rb'))
             st.write("Model Load - joblib load")
         except:
-            loaded_model = pickle.load("bnb_model.pkl", 'rb')
+            loaded_model = pickle.load(open("bnb_model.pkl", 'rb'))
             st.write("Model Load")
             
         list1 = [0,0,1,2,0,1,1,0]
