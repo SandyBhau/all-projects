@@ -20,10 +20,12 @@ import pandas as pd
 import streamlit as st
 from streamlit.hello.utils import show_code
 import pickle
-import joblib
+# import joblib
 import os
 import sklearn
 from sklearn.metrics import __all__
+from sklearn.naive_bayes import BernoulliNB 
+from sklearn.externals import joblib
 
 
 def data_frame_demo():
@@ -35,9 +37,8 @@ def data_frame_demo():
     
     if st.button("Predict"):
         parent_dir = os.path.dirname(os.path.abspath(__file__))
-        st.write(parent_dir)
         build_dir = os.path.join(parent_dir, "/bnb_model.pkl")
-        st.write(build_dir)
+        st.write(str(parent_dir + "/bnb_model.pkl"))
         
         try:
             loaded_model = joblib.load(open(parent_dir + "/bnb_model.pkl", 'rb'))
