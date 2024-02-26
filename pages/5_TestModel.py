@@ -29,69 +29,46 @@ from sklearn.naive_bayes import BernoulliNB
 from sklearn.linear_model import LogisticRegression
 
 
-def data_frame_demo():
+
+def predict_MP():
     @st.cache_data
-    def get_UN_data():
-        AWS_BUCKET_URL = "https://streamlit-demo-data.s3-us-west-2.amazonaws.com"
-        df = pd.read_csv(AWS_BUCKET_URL + "/agri.csv.gz")
-        return df.set_index("Region")
-    
-    if st.button("Predict"):
+    def read_model():
         modelname = "model.pkl"
         parent_dir = os.path.dirname(os.path.abspath(__file__))
-        build_dir = os.path.join(parent_dir, "/" + modelname)
-        st.write(str(parent_dir + "/model/" + modelname))
         
         loaded_model = pickle.load(open(parent_dir + "/model/" + modelname, 'rb'))
-        st.write("Model Load - pickle load")
-            
-        list1 = [0,0,1,2,0,1,1,0]
-        out = loaded_model.predict(pd.DataFrame([list1]))
-        st.write(str(out))
-    try:
-        df = get_UN_data()
-        countries = st.multiselect(
-            "Choose countries", list(df.index), ["China", "United States of America"]
-        )
-        if not countries:
-            st.error("Please select at least one country.")
-        else:
-            data = df.loc[countries]
-            data /= 1000000.0
-            st.write("### Gross Agricultural Production ($B)", data.sort_index())
+        return loaded_model
+    
+    dictmap = {"None":0,"Fever":1,"Muscle Aches and Pain":2,"Swollen Lymph Nodes":3}
+    mapping = {"No": 0, "Yes": 1}
+    
+    symptomslist = [HIV_Infection,Rectal_Pain,Sexually_Transmitted_Infection, dictmap[Systemic_Illness],Penile_Oedema, Sore_Throat,Solitary_Lesion,Swollen_Tonsils]
+    
+    symptomslist_encoded = [mapping[item] for item in symptomslist]
+    
+    loaded_model_pkl = read_model()
 
-            data = data.T.reset_index()
-            data = pd.melt(data, id_vars=["index"]).rename(
-                columns={"index": "year", "value": "Gross Agricultural Product ($B)"}
-            )
-            chart = (
-                alt.Chart(data)
-                .mark_area(opacity=0.3)
-                .encode(
-                    x="year:T",
-                    y=alt.Y("Gross Agricultural Product ($B):Q", stack=None),
-                    color="Region:N",
-                )
-            )
-            st.altair_chart(chart, use_container_width=True)
-    except URLError as e:
-        st.error(
-            """
-            **This demo requires internet access.**
-            Connection error: %s
-        """
-            % e.reason
-        )
-
-
-st.set_page_config(page_title="DataFrame Demo", page_icon="📊")
-st.markdown("# DataFrame Demo")
-st.sidebar.header("DataFrame Demo")
+    out = loaded_model_pkl.predict(pd.DataFrame([symptomslist_encoded]))
+    
+    if int(out) == 0:
+        st.write("Negative")
+    else:
+        st.write("Positive")
+    
+st.set_page_config(page_title="Monkey Pox Prediction", page_icon="📊")
+st.markdown("# Monkey Pox Prediction")
 st.write(
-    """This demo shows how to use `st.write` to visualize Pandas DataFrames.
-(Data courtesy of the [UN Data Explorer](http://data.un.org/Explorer.aspx).)"""
+    """Kindly provide your symptom to check whether you have a Monkey Pox. """
 )
 
-data_frame_demo()
+Systemic_Illness = st.text_input("Systemic Illness",["None","Fever","Swollen Lymph Nodes","Muscle Aches and Pain"]) 
+Sore_Throat = st.text_input("Sore Throat",["No","Yes"])
+Swollen_Tonsils = st.text_input("Swollen Tonsils",["No","Yes"])
+HIV_Infection = st.text_input("HIV Infection",["No","Yes"])
+Rectal_Pain = st.text_input("Rectal Pain",["No","Yes"])
+Sexually_Transmitted_Infection = st.text_input("Sexually Transmitted Infection",["No","Yes"])
+Penile_Oedema	 = st.text_input("Penile Oedema",["No","Yes"])
+Solitary_Lesion = st.text_input("Solitary Lesion",["No","Yes"])
 
-show_code(data_frame_demo)
+if st.button == "Predict":
+    predict_MP()
