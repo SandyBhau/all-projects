@@ -22,6 +22,7 @@ from streamlit.hello.utils import show_code
 import pickle
 import joblib
 import os
+import sklearn
 
 
 def data_frame_demo():
@@ -38,7 +39,7 @@ def data_frame_demo():
         st.write(build_dir)
         
         try:
-            loaded_model = joblib.load(open(build_dir, 'rb'))
+            loaded_model = joblib.load(open(parent_dir + "/bnb_model.pkl", 'rb'))
             st.write("Model Load - joblib load")
         except:
             loaded_model = pickle.load(open(parent_dir + "/bnb_model.pkl", 'rb'))
