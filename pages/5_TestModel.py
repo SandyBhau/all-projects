@@ -37,18 +37,13 @@ def data_frame_demo():
         return df.set_index("Region")
     
     if st.button("Predict"):
-        modelname = "model.pkl"
+        modelname = "bnb_model.pkl"
         parent_dir = os.path.dirname(os.path.abspath(__file__))
         build_dir = os.path.join(parent_dir, "/" + modelname)
         st.write(str(parent_dir + "/" + modelname))
         
-        try:
-            loaded_model = pickle.load(open(parent_dir + "/" + modelname, 'rb'))
-            st.write("Model Load - pickle load")
-        except:
-            # loaded_model = joblib.load(open(parent_dir + "/bnb_model.pkl", 'rb'))
-            loaded_model = pickle.load(open(modelname, 'rb'))
-            st.write("Model joblib Load")
+        loaded_model = pickle.load(open(parent_dir + "/model/" + modelname, 'rb'))
+        st.write("Model Load - pickle load")
             
         list1 = [0,0,1,2,0,1,1,0]
         out = loaded_model.predict(pd.DataFrame([list1]))
