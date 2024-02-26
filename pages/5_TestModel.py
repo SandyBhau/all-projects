@@ -37,10 +37,10 @@ def data_frame_demo():
         return df.set_index("Region")
     
     if st.button("Predict"):
-        modelname = "bnb_model.pkl"
+        modelname = "model.pkl"
         parent_dir = os.path.dirname(os.path.abspath(__file__))
         build_dir = os.path.join(parent_dir, "/" + modelname)
-        st.write(str(parent_dir + "/" + modelname))
+        st.write(str(parent_dir + "/model/" + modelname))
         
         loaded_model = pickle.load(open(parent_dir + "/model/" + modelname, 'rb'))
         st.write("Model Load - pickle load")
