@@ -33,10 +33,10 @@ def data_frame_demo():
     if st.button("Predict"):
         st.write("Started")
         try:
-            loaded_model = joblib.load(open("bnb_model.pkl", 'rb'))
+            loaded_model = joblib.load("bnb_model.pkl", 'rb')
             st.write("Model Load - joblib load")
         except:
-            loaded_model = pickle.load(open("bnb_model.pkl", 'rb'))
+            loaded_model = pickle.load("bnb_model.pkl", 'rb')
             st.write("Model Load")
             
         list1 = [0,0,1,2,0,1,1,0]
