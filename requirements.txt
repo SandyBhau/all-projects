@@ -4,5 +4,4 @@ pandas
 pydeck
 streamlit
 replicate
-pickle
-joblib
+joblib>=0.14
