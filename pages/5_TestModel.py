@@ -45,7 +45,7 @@ def predict_MP():
     symptomslist = [HIV_Infection,Rectal_Pain,Sexually_Transmitted_Infection, dictmap[Systemic_Illness],Penile_Oedema, Sore_Throat,Solitary_Lesion,Swollen_Tonsils]
     
     st.write(str(symptomslist))
-    symptomslist_encoded = [mapping.get(item, item) for item in list1]
+    symptomslist_encoded = [mapping.get(item, item) for item in symptomslist]
     st.write(str(symptomslist_encoded))
     
     loaded_model_pkl = read_model()
