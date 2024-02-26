@@ -33,6 +33,7 @@ def data_frame_demo():
     
     if st.button("Predict"):
         parent_dir = os.path.dirname(os.path.abspath(__file__))
+        st.write(parent_dir)
         build_dir = os.path.join(parent_dir, "/bnb_model.pkl")
         st.write(build_dir)
         
@@ -40,7 +41,7 @@ def data_frame_demo():
             loaded_model = joblib.load(open(build_dir, 'rb'))
             st.write("Model Load - joblib load")
         except:
-            loaded_model = pickle.load(open(build_dir, 'rb'))
+            loaded_model = pickle.load(open(parent_dir + "/bnb_model.pkl", 'rb'))
             st.write("Model Load")
             
         list1 = [0,0,1,2,0,1,1,0]
