@@ -23,6 +23,7 @@ import pickle
 import joblib
 import os
 import sklearn
+from sklearn.metrics import __all__
 
 
 def data_frame_demo():
