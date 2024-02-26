@@ -44,14 +44,11 @@ def predict_MP():
     
     symptomslist = [HIV_Infection,Rectal_Pain,Sexually_Transmitted_Infection, dictmap[Systemic_Illness],Penile_Oedema, Sore_Throat,Solitary_Lesion,Swollen_Tonsils]
     
-    st.write(str(symptomslist))
     symptomslist_encoded = [mapping.get(item, item) for item in symptomslist]
-    st.write(str(symptomslist_encoded))
     
     loaded_model_pkl = read_model()
 
     out = loaded_model_pkl.predict(pd.DataFrame([symptomslist_encoded]))
-    st.write(out)
     if int(out) == 0:
         st.write("Negative")
     else:
@@ -64,13 +61,23 @@ st.write(
 )
 
 Systemic_Illness = st.selectbox("Systemic Illness",["None","Fever","Swollen Lymph Nodes","Muscle Aches and Pain"]) 
-Sore_Throat = st.selectbox("Sore Throat",["No","Yes"])
-Swollen_Tonsils = st.selectbox("Swollen Tonsils",["No","Yes"])
-HIV_Infection = st.selectbox("HIV Infection",["No","Yes"])
-Rectal_Pain = st.selectbox("Rectal Pain",["No","Yes"])
-Sexually_Transmitted_Infection = st.selectbox("Sexually Transmitted Infection",["No","Yes"])
-Penile_Oedema	 = st.selectbox("Penile Oedema",["No","Yes"])
-Solitary_Lesion = st.selectbox("Solitary Lesion",["No","Yes"])
+col1, col2,col3 = st.columns(3)
+with col1:
+    Sore_Throat = st.selectbox("Sore Throat",["No","Yes"])
+with col2:
+    Swollen_Tonsils = st.selectbox("Swollen Tonsils",["No","Yes"])
+with col3:
+    HIV_Infection = st.selectbox("HIV Infection",["No","Yes"])
+coln1, coln2 = st.columns(2)
+with coln1:
+    Rectal_Pain = st.selectbox("Rectal Pain",["No","Yes"])
+with coln2:
+    Sexually_Transmitted_Infection = st.selectbox("Sexually Transmitted Infection",["No","Yes"])
+cl1, cl2 = st.columns(2)
+with cl1:
+    Penile_Oedema	 = st.selectbox("Penile Oedema",["No","Yes"])
+with cl2:
+    Solitary_Lesion = st.selectbox("Solitary Lesion",["No","Yes"])
 
 if st.button("Predict"):
     predict_MP()
