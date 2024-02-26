@@ -20,29 +20,24 @@ LOGGER = get_logger(__name__)
 
 def run():
     st.set_page_config(
-        page_title="Hello",
+        page_title="Hi My name is Sandesh Bharitkar",
         page_icon="👋",
     )
 
-    st.write("# Welcome to Streamlit! 👋")
+    st.write("# This are demo project")
 
-    st.sidebar.success("Select a demo above.")
+    st.sidebar.success("Select a above demo projects.")
 
     st.markdown(
         """
-        Streamlit is an open-source app framework built specifically for
-        Machine Learning and Data Science projects.
-        **👈 Select a demo from the sidebar** to see some examples
-        of what Streamlit can do!
-        ### Want to learn more?
-        - Check out [streamlit.io](https://streamlit.io)
-        - Jump into our [documentation](https://docs.streamlit.io)
-        - Ask a question in our [community
-          forums](https://discuss.streamlit.io)
-        ### See more complex demos
-        - Use a neural net to [analyze the Udacity Self-driving Car Image
-          Dataset](https://github.com/streamlit/demo-self-driving)
-        - Explore a [New York City rideshare dataset](https://github.com/streamlit/demo-uber-nyc-pickups)
+        **👈 Select a project demo from the sidebar** to see some examples!
+        ### Current Demo Project - 
+        - QnA Chatbot using Meta Hugging Face[ChatBot](https://all-projects-sandesh.streamlit.app/llama2_qna)
+        - Monkey Pox Prediction[Predictor](https://all-projects-sandesh.streamlit.app/Monkey_Pox_Predictor)
+        ### Please check out my profile?
+        - [Linkedin](https://www.linkedin.com/in/sandesh-bharitkar/)
+        - [GitHub](https://github.com/SandyBhau)
+        - [HackerRank](https://www.hackerrank.com/profile/sandeshbharitka1)
     """
     )
 
