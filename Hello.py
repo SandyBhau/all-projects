@@ -24,7 +24,7 @@ def run():
         page_icon="👋",
     )
 
-    st.write("# This are demo project")
+    st.write("# This are demo project, If Streamlit is failed kindly reload the application in Manage - App.")
 
     st.sidebar.success("Select a above demo projects.")
 
@@ -35,6 +35,7 @@ def run():
         - QnA Chatbot using Meta Hugging Face [ChatBot](https://all-projects-sandesh.streamlit.app/llama2_QnA_Chatbot)
         - Monkey Pox Prediction [Predictor](https://all-projects-sandesh.streamlit.app/Monkey_Pox_Predictor)
         - Free Translator to English Language [Translator](https://all-projects-sandesh.streamlit.app/Translator)
+        - Sentiment Analysis [Sentiment_Analysis](https://all-projects-sandesh.streamlit.app/Sentiment_Analysis)
         ### Please check out my profile?
         - [Linkedin](https://www.linkedin.com/in/sandesh-bharitkar/)
         - [GitHub](https://github.com/SandyBhau)

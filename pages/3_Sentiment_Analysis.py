@@ -28,54 +28,70 @@ from nltk.sentiment import SentimentIntensityAnalyzer
 from transformers import pipeline
 from nltk.corpus import brown
 
+MODEL = f"cardiffnlp/twitter-roberta-base-sentiment"
+tokenizer = AutoTokenizer.from_pretrained(MODEL)
 
+@st.cache_data
 def sent_analysis(text):
     @st.cache_data
-    def read_model():
-        MODEL = f"cardiffnlp/twitter-roberta-base-sentiment"
-        tokenizer1 = AutoTokenizer.from_pretrained(MODEL)
+    def read_model(): 
         model1 = AutoModelForSequenceClassification.from_pretrained(MODEL)
+        return model1
+    
+    @st.cache_data
+    def read_pipeline():
+        
         try:          
             sent_pipeline1 = pipeline("sentiment-analysis")
+            pipelineError = False
         except:
+            pipelineError = True
             sent_pipeline1 = ""
             pass
-        return tokenizer1,model1,sent_pipeline1
-
-    try:
-        nltk.download('maxent_ne_chunker')
-        nltk.download('vader_lexicon')
-        sia = SentimentIntensityAnalyzer()
-        out_SA = sia.polarity_scores(text)
-        st.title("SentimentIntensityAnalyzer NLTK")
-        st.write(out_SA)
-    except Exception as ex:
-        st.write(ex)
-        pass
+        return sent_pipeline1
     
-    try:
-        tokenizer,model,sent_pipeline = read_model()
-        
-        encoded_text = tokenizer(text, return_tensors='pt')
-        output = model(**encoded_text)
-        scores = output[0][0].detach().numpy()
-        scores = softmax(scores)
-        scores_dict = {
-            'roberta_neg' : scores[0],
-            'roberta_neu' : scores[1],
-            'roberta_pos' : scores[2]
-        }
-        st.title("twitter-roberta-base-sentiment")
-        st.write(scores_dict)
-    except Exception as ex:
-        st.write(ex)
-        pass
-    try:
-        st.title("Pre-trained sentiment-analysis Pipeline")
-        st.write(sent_pipeline("Everyone try to loves you which is bad"))
-    except Exception as ex:
-        st.write(ex)
-        pass
+    @st.cache_data
+    def nltkmodule():
+        try:
+            # nltk.download('maxent_ne_chunker')
+            # nltk.download('vader_lexicon')
+            sia = SentimentIntensityAnalyzer()
+            out_SA = sia.polarity_scores(text)
+            st.title("SentimentIntensityAnalyzer NLTK")
+            st.write(out_SA)
+        except Exception as ex:
+            st.write(str(ex))
+            pass
+    
+    nltkmodule()
+    
+    if st.button("Roberta"):
+        try:
+            model = read_model()
+            encoded_text = tokenizer(text, return_tensors='pt')
+            output = model(**encoded_text)
+            scores = output[0][0].detach().numpy()
+            scores = softmax(scores)
+            scores_dict = {
+                'roberta_neg' : scores[0],
+                'roberta_neu' : scores[1],
+                'roberta_pos' : scores[2]
+            }
+            st.title("twitter-roberta-base-sentiment")
+            st.write(scores_dict)
+        except Exception as ex:
+            st.write(ex)
+            pass
+    
+    if st.button("Pipeline"):
+        try:
+            sent_pipeline = read_pipeline()
+            if pipelineError == False:
+                st.title("Pre-trained sentiment-analysis Pipeline")
+                st.write(sent_pipeline("Everyone try to loves you which is bad"))
+        except Exception as ex:
+            st.write(str(ex))
+            pass
     
 # nltk.download()
    

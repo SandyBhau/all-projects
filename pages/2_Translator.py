@@ -23,28 +23,31 @@ from streamlit.hello.utils import show_code
 from transformers import AutoTokenizer,AutoModelWithLMHead
 import torch
 
+tokenizer = AutoTokenizer.from_pretrained('Helsinki-NLP/opus-mt-mul-en')
 
-
+@st.cache_data
 def lang_converion_eng(text):
     @st.cache_data
-    def read_model():
-        tokenizer1 = AutoTokenizer.from_pretrained('Helsinki-NLP/opus-mt-mul-en')
+    def read_model():       
         model1 = AutoModelWithLMHead.from_pretrained('Helsinki-NLP/opus-mt-mul-en')
-        return tokenizer1,model1
+        return model1
     
-    tokenizer,model = read_model()
-    # Tokenize the text
-    batch = tokenizer.prepare_seq2seq_batch(src_texts=[text])
-    # Make sure that the tokenized text does not exceed the maximum
-    # allowed size of 512
-    batch["input_ids"] = torch.tensor(batch["input_ids"])
-    batch["attention_mask"] = torch.tensor(batch["attention_mask"])
-    batch["input_ids"] = batch["input_ids"][:, :512]
-    batch["attention_mask"] = batch["attention_mask"][:, :512]
-    # Perform the translation and decode the output
-    translation = model.generate(**batch)
-    converted_text = tokenizer.batch_decode(translation, skip_special_tokens=True)     
-    st.write('Translated Text is : ', converted_text)
+    try:
+        model = read_model()
+        # Tokenize the text
+        batch = tokenizer.prepare_seq2seq_batch(src_texts=[text])
+        # Make sure that the tokenized text does not exceed the maximum
+        # allowed size of 512
+        batch["input_ids"] = torch.tensor(batch["input_ids"])
+        batch["attention_mask"] = torch.tensor(batch["attention_mask"])
+        batch["input_ids"] = batch["input_ids"][:, :512]
+        batch["attention_mask"] = batch["attention_mask"][:, :512]
+        # Perform the translation and decode the output
+        translation = model.generate(**batch)
+        converted_text = tokenizer.batch_decode(translation, skip_special_tokens=True)     
+        st.write('Translated Text is : ', converted_text)
+    except Exception as ex:
+        st.write(str(ex))
     
     
 st.set_page_config(page_title="Free Translation", page_icon="📊")
