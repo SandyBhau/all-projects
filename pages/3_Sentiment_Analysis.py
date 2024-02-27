@@ -32,9 +32,6 @@ from nltk.corpus import brown
 def sent_analysis(text):
     @st.cache_data
     def read_model():
-        nltk.download()
-        nltk.download('maxent_ne_chunker')
-        nltk.download('vader_lexicon')
         MODEL = f"cardiffnlp/twitter-roberta-base-sentiment"
         tokenizer1 = AutoTokenizer.from_pretrained(MODEL)
         model1 = AutoModelForSequenceClassification.from_pretrained(MODEL)
@@ -45,27 +42,42 @@ def sent_analysis(text):
             pass
         return tokenizer1,model1,sent_pipeline1
 
-    sia = SentimentIntensityAnalyzer()
-    out_SA = sia.polarity_scores(text)
-    st.write(out_SA)
-    tokenizer,model,sent_pipeline = read_model()
-    
-    encoded_text = tokenizer(text, return_tensors='pt')
-    output = model(**encoded_text)
-    scores = output[0][0].detach().numpy()
-    scores = softmax(scores)
-    scores_dict = {
-        'roberta_neg' : scores[0],
-        'roberta_neu' : scores[1],
-        'roberta_pos' : scores[2]
-    }
-    st.write(scores_dict)
     try:
-        st.write(sent_pipeline("Everyone try to loves you which is bad"))
-    except:
+        sia = SentimentIntensityAnalyzer()
+        out_SA = sia.polarity_scores(text)
+        st.title("SentimentIntensityAnalyzer NLTK")
+        st.write(out_SA)
+    except Exception as ex:
+        st.write(ex)
         pass
     
+    try:
+        tokenizer,model,sent_pipeline = read_model()
+        
+        encoded_text = tokenizer(text, return_tensors='pt')
+        output = model(**encoded_text)
+        scores = output[0][0].detach().numpy()
+        scores = softmax(scores)
+        scores_dict = {
+            'roberta_neg' : scores[0],
+            'roberta_neu' : scores[1],
+            'roberta_pos' : scores[2]
+        }
+        st.title("twitter-roberta-base-sentiment")
+        st.write(scores_dict)
+    except Exception as ex:
+        st.write(ex)
+        pass
+    try:
+        st.title("Pre-trained sentiment-analysis Pipeline")
+        st.write(sent_pipeline("Everyone try to loves you which is bad"))
+    except Exception as ex:
+        st.write(ex)
+        pass
     
+nltk.download()
+nltk.download('maxent_ne_chunker')
+nltk.download('vader_lexicon')   
     
 st.set_page_config(page_title="Sentiment Analysis", page_icon="📊")
 st.markdown("# Enter the sentence to identify the sentiments")
