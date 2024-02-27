@@ -23,23 +23,28 @@ from streamlit.hello.utils import show_code
 from transformers import AutoTokenizer
 from transformers import AutoModelForSequenceClassification
 from scipy.special import softmax
+import nltk
 from nltk.sentiment import SentimentIntensityAnalyzer
 from transformers import pipeline
+from nltk.corpus import brown
 
 
 def sent_analysis(text):
     @st.cache_data
     def read_model():
+        nltk.download()
+        nltk.download('maxent_ne_chunker')
+        nltk.download('vader_lexicon')
         MODEL = f"cardiffnlp/twitter-roberta-base-sentiment"
         tokenizer1 = AutoTokenizer.from_pretrained(MODEL)
         model1 = AutoModelForSequenceClassification.from_pretrained(MODEL)
-        try:
+        try:          
             sent_pipeline1 = pipeline("sentiment-analysis")
         except:
             sent_pipeline1 = ""
             pass
         return tokenizer1,model1,sent_pipeline1
-    
+
     sia = SentimentIntensityAnalyzer()
     out_SA = sia.polarity_scores(text)
     st.write(out_SA)
