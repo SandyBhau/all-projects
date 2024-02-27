@@ -85,6 +85,7 @@ def sent_analysis(text):
     
     if st.button("Pipeline"):
         try:
+            pipelineError = False
             sent_pipeline = read_pipeline()
             if pipelineError == False:
                 st.title("Pre-trained sentiment-analysis Pipeline")
