@@ -43,6 +43,8 @@ def sent_analysis(text):
         return tokenizer1,model1,sent_pipeline1
 
     try:
+        nltk.download('maxent_ne_chunker')
+        nltk.download('vader_lexicon')
         sia = SentimentIntensityAnalyzer()
         out_SA = sia.polarity_scores(text)
         st.title("SentimentIntensityAnalyzer NLTK")
@@ -75,9 +77,8 @@ def sent_analysis(text):
         st.write(ex)
         pass
     
-nltk.download()
-nltk.download('maxent_ne_chunker')
-nltk.download('vader_lexicon')   
+# nltk.download()
+   
     
 st.set_page_config(page_title="Sentiment Analysis", page_icon="📊")
 st.markdown("# Enter the sentence to identify the sentiments")
