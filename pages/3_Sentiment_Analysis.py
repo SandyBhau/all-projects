@@ -30,8 +30,8 @@ from nltk.corpus import brown
 
 MODEL = f"cardiffnlp/twitter-roberta-base-sentiment"
 tokenizer = AutoTokenizer.from_pretrained(MODEL)
+nltk.download('vader_lexicon')
 
-@st.cache_data
 def sent_analysis(text):
     @st.cache_data
     def read_model(): 
@@ -54,16 +54,15 @@ def sent_analysis(text):
     def nltkmodule():
         try:
             # nltk.download('maxent_ne_chunker')
-            # nltk.download('vader_lexicon')
-            sia = SentimentIntensityAnalyzer()
-            out_SA = sia.polarity_scores(text)
-            st.title("SentimentIntensityAnalyzer NLTK")
-            st.write(out_SA)
+            sia1 = SentimentIntensityAnalyzer()           
         except Exception as ex:
             st.write(str(ex))
             pass
-    
-    nltkmodule()
+        return sia1
+    sia = nltkmodule()
+    out_SA = sia.polarity_scores(text)
+    st.title("SentimentIntensityAnalyzer NLTK")
+    st.write(out_SA)
     
     if st.button("Roberta"):
         try:
@@ -85,6 +84,7 @@ def sent_analysis(text):
     
     if st.button("Pipeline"):
         try:
+            pipelineError = False
             sent_pipeline = read_pipeline()
             if pipelineError == False:
                 st.title("Pre-trained sentiment-analysis Pipeline")
