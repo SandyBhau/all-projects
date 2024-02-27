@@ -37,24 +37,23 @@ def sent_analysis_roberta(text):
     def read_model(): 
         model1 = AutoModelForSequenceClassification.from_pretrained(MODEL)
         return model1
-    
-    if st.button("Roberta"):
-        try:
-            model = read_model()
-            encoded_text = tokenizer(text, return_tensors='pt')
-            output = model(**encoded_text)
-            scores = output[0][0].detach().numpy()
-            scores = softmax(scores)
-            scores_dict = {
-                'roberta_neg' : scores[0],
-                'roberta_neu' : scores[1],
-                'roberta_pos' : scores[2]
-            }
-            st.title("Model cardiffnlp/twitter-roberta-base-sentiment")
-            st.write(scores_dict)
-        except Exception as ex:
-            st.write(ex)
-            pass
+      
+    try:
+        model = read_model()
+        encoded_text = tokenizer(text, return_tensors='pt')
+        output = model(**encoded_text)
+        scores = output[0][0].detach().numpy()
+        scores = softmax(scores)
+        scores_dict = {
+            'roberta_neg' : scores[0],
+            'roberta_neu' : scores[1],
+            'roberta_pos' : scores[2]
+        }
+        st.title("Model cardiffnlp/twitter-roberta-base-sentiment")
+        st.write(scores_dict)
+    except Exception as ex:
+        st.write(ex)
+        pass
 
 
 def sent_analysis_pipeline(text):
@@ -68,17 +67,16 @@ def sent_analysis_pipeline(text):
             sent_pipeline1 = ""
             pass
         return sent_pipeline1
-    
-    if st.button("Pipeline"):
-        try:
-            pipelineError = False
-            sent_pipeline = read_pipeline()
-            if pipelineError == False:
-                st.title("Pre-trained sentiment-analysis Transformer Pipeline")
-                st.write(sent_pipeline("Everyone try to loves you which is bad"))
-        except Exception as ex:
-            st.write(str(ex))
-            pass
+       
+    try:
+        pipelineError = False
+        sent_pipeline = read_pipeline()
+        if pipelineError == False:
+            st.title("Pre-trained sentiment-analysis Transformer Pipeline")
+            st.write(sent_pipeline("Everyone try to loves you which is bad"))
+    except Exception as ex:
+        st.write(str(ex))
+        pass
     
 def sent_analysis_NLTK(text):
     @st.cache_data
