@@ -24,7 +24,7 @@ from streamlit.hello.utils import show_code
 st.set_page_config(page_title="Azure Web Scraping", page_icon="📊")
 st.markdown("# Azure Web Scraping")
 st.write(
-    """## Azure Function App With Web Scraping using BeautifulSoup & Get Data From wikipedia
+    """ ## Azure Function App With Web Scraping using BeautifulSoup & Get Data From wikipedia.
     ## Enter the Detail you want to check for. For Example - London, Project, Weather."""
 )
 
@@ -35,5 +35,5 @@ if st.button("Get Information"):
         "name": inp
     }
     outdata = requests.post("https://funcapp-azure-web.azurewebsites.net/api/HttpTrigger1",json=data)
-    st.write("Informatio")
+    st.write("Find below Information :-")
     st.write_stream(outdata)
