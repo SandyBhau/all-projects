@@ -36,6 +36,7 @@ def run():
         - Monkey Pox Prediction [Predictor](https://all-projects-sandesh.streamlit.app/Monkey_Pox_Predictor)
         - Free Translator to English Language [Translator](https://all-projects-sandesh.streamlit.app/Translator)
         - Sentiment Analysis [Sentiment_Analysis](https://all-projects-sandesh.streamlit.app/Sentiment_Analysis)
+        - Azure Function App with Web Scraping using BeautifulSoup [API](https://all-projects-sandesh.streamlit.app/Azure_Web_Scrap_Wiki)
         ### Please check out my profile?
         - [Linkedin](https://www.linkedin.com/in/sandesh-bharitkar/)
         - [GitHub](https://github.com/SandyBhau)
