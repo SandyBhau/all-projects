@@ -32,37 +32,11 @@ MODEL = f"cardiffnlp/twitter-roberta-base-sentiment"
 tokenizer = AutoTokenizer.from_pretrained(MODEL)
 nltk.download('vader_lexicon')
 
-def sent_analysis(text):
+def sent_analysis_roberta(text):
     @st.cache_data
     def read_model(): 
         model1 = AutoModelForSequenceClassification.from_pretrained(MODEL)
         return model1
-    
-    @st.cache_data
-    def read_pipeline():
-        
-        try:          
-            sent_pipeline1 = pipeline("sentiment-analysis")
-            pipelineError = False
-        except:
-            pipelineError = True
-            sent_pipeline1 = ""
-            pass
-        return sent_pipeline1
-    
-    @st.cache_data
-    def nltkmodule():
-        try:
-            # nltk.download('maxent_ne_chunker')
-            sia1 = SentimentIntensityAnalyzer()           
-        except Exception as ex:
-            st.write(str(ex))
-            pass
-        return sia1
-    sia = nltkmodule()
-    out_SA = sia.polarity_scores(text)
-    st.title("SentimentIntensityAnalyzer NLTK")
-    st.write(out_SA)
     
     if st.button("Roberta"):
         try:
@@ -76,25 +50,51 @@ def sent_analysis(text):
                 'roberta_neu' : scores[1],
                 'roberta_pos' : scores[2]
             }
-            st.title("twitter-roberta-base-sentiment")
+            st.title("Model cardiffnlp/twitter-roberta-base-sentiment")
             st.write(scores_dict)
         except Exception as ex:
             st.write(ex)
             pass
+
+
+def sent_analysis_pipeline(text):
+    @st.cache_data
+    def read_pipeline():   
+        try:          
+            sent_pipeline1 = pipeline("sentiment-analysis")
+            pipelineError = False
+        except:
+            pipelineError = True
+            sent_pipeline1 = ""
+            pass
+        return sent_pipeline1
     
     if st.button("Pipeline"):
         try:
             pipelineError = False
             sent_pipeline = read_pipeline()
             if pipelineError == False:
-                st.title("Pre-trained sentiment-analysis Pipeline")
+                st.title("Pre-trained sentiment-analysis Transformer Pipeline")
                 st.write(sent_pipeline("Everyone try to loves you which is bad"))
         except Exception as ex:
             st.write(str(ex))
             pass
     
-# nltk.download()
-   
+def sent_analysis_NLTK(text):
+    @st.cache_data
+    def nltkmodule():
+        try:
+            # nltk.download('maxent_ne_chunker')
+            sia1 = SentimentIntensityAnalyzer()           
+        except Exception as ex:
+            st.write(str(ex))
+            pass
+        return sia1
+    sia = nltkmodule()
+    out_SA = sia.polarity_scores(text)
+    st.title("SentimentIntensityAnalyzer NLTK - vader_lexicon")
+    st.write(out_SA)
+    
     
 st.set_page_config(page_title="Sentiment Analysis", page_icon="📊")
 st.markdown("# Enter the sentence to identify the sentiments")
@@ -104,6 +104,14 @@ st.write(
 
 textinp = st.text_input('Please enter the Sentence Text & Click Analysis', 'I am a good Developer')
 
+col1, col2,col3 = st.columns(3)
+with col1:
+    if st.button("Sentiment Analysis"):
+        sent_analysis_NLTK(textinp)
+with col2:
+    if st.button("Sentiment Analysis Roberta"):
+        sent_analysis_roberta(textinp)
+with col3:
+    if st.button("Transformer Pipeline"):
+        sent_analysis_pipeline(textinp)        
 
-if st.button("Sentiment Analysis"):
-    sent_analysis(textinp)
