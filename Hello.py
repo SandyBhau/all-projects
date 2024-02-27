@@ -32,8 +32,9 @@ def run():
         """
         **👈 Select a project demo from the sidebar** to see some examples!
         ### Current Demo Project - 
-        - QnA Chatbot using Meta Hugging Face[ChatBot](https://all-projects-sandesh.streamlit.app/llama2_qna)
-        - Monkey Pox Prediction[Predictor](https://all-projects-sandesh.streamlit.app/Monkey_Pox_Predictor)
+        - QnA Chatbot using Meta Hugging Face [ChatBot](https://all-projects-sandesh.streamlit.app/llama2_QnA_Chatbot)
+        - Monkey Pox Prediction [Predictor](https://all-projects-sandesh.streamlit.app/Monkey_Pox_Predictor)
+        - Free Translator to English Language [Translator](https://all-projects-sandesh.streamlit.app/Translator)
         ### Please check out my profile?
         - [Linkedin](https://www.linkedin.com/in/sandesh-bharitkar/)
         - [GitHub](https://github.com/SandyBhau)

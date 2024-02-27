@@ -8,3 +8,5 @@ joblib
 scikit-learn
 scipy
 matplotlib
+transformers
+torch
