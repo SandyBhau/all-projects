@@ -33,7 +33,11 @@ def sent_analysis(text):
         MODEL = f"cardiffnlp/twitter-roberta-base-sentiment"
         tokenizer1 = AutoTokenizer.from_pretrained(MODEL)
         model1 = AutoModelForSequenceClassification.from_pretrained(MODEL)
-        sent_pipeline1 = pipeline("sentiment-analysis")
+        try:
+            sent_pipeline1 = pipeline("sentiment-analysis")
+        except:
+            sent_pipeline1 = ""
+            pass
         return tokenizer1,model1,sent_pipeline1
     
     sia = SentimentIntensityAnalyzer()
@@ -51,7 +55,10 @@ def sent_analysis(text):
         'roberta_pos' : scores[2]
     }
     st.write(scores_dict)
-    st.write(sent_pipeline("Everyone try to loves you which is bad"))
+    try:
+        st.write(sent_pipeline("Everyone try to loves you which is bad"))
+    except:
+        pass
     
     
     
