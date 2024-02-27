@@ -24,14 +24,10 @@ from streamlit.hello.utils import show_code
 st.set_page_config(page_title="Azure Web Scraping", page_icon="📊")
 st.markdown("# Azure Web Scraping")
 st.write(
-    """
-    ### Azure Function App With Web Scraping using BeautifulSoup & Get Data From wikipedia
-    ### Enter the Detail you want to check for. For Example - London, Project, Weather.
-    ### Try to keep 1 word."""
+    """## Azure Function App With Web Scraping using BeautifulSoup & Get Data From wikipedia
+    ## Enter the Detail you want to check for. For Example - London, Project, Weather."""
 )
 
-
-st.title("Enter 1 Word")
 inp = st.text_input("Please enter a word","Weather")
 
 if st.button("Get Information"):
