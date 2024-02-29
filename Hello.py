@@ -24,7 +24,7 @@ def run():
         page_icon="👋",
     )
 
-    st.write("# This are demo project, If Streamlit is failed kindly reload the application in Manage - App.")
+    st.write("# This are demo project.")
 
     st.sidebar.success("Select a above demo projects.")
 
@@ -36,7 +36,7 @@ def run():
         - Monkey Pox Prediction [Predictor](https://all-projects-sandesh.streamlit.app/Monkey_Pox_Predictor)
         - Free Translator to English Language [Translator](https://all-projects-sandesh.streamlit.app/Translator)
         - Sentiment Analysis [Sentiment_Analysis](https://all-projects-sandesh.streamlit.app/Sentiment_Analysis)
-        - Azure Function App with Web Scraping using BeautifulSoup [API](https://all-projects-sandesh.streamlit.app/Azure_Web_Scrap_Wiki)
+        - Azure Function App with Web Scraping using BeautifulSoup [Wikipedia Scrape](https://all-projects-sandesh.streamlit.app/Azure_Web_Scrap_Wiki)
         ### Please check out my profile?
         - [Linkedin](https://www.linkedin.com/in/sandesh-bharitkar/)
         - [GitHub](https://github.com/SandyBhau)
